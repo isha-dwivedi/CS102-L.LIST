@@ -1,0 +1,140 @@
+//linked list
+#include <iostream>
+
+using namespace std;
+
+class node{
+  
+  public:
+  int data;
+  node * next;
+  node(){
+      data = 0;
+      next=NULL;
+  }
+};
+
+class LinkedList{
+    public:
+    node * head;
+    node * tail;
+    
+    //constructor
+    LinkedList(){
+    head=NULL;
+    tail=NULL;
+    }
+    
+    //insert
+    void insert( int value){ //Adds a new element to the end of the linkedlist
+        
+        node * temp= new node;
+        //insert data in temp 
+        temp->data=value;
+        // 1st node only
+        if(head==NULL)
+        { head=temp;
+         tail=temp; }
+        else //insert at last
+        {
+        node * next;
+        tail-> next=temp;
+        tail=temp;
+        }
+    }
+    
+    void insertAt( int pos, int value){
+        node *current=head;
+        int i=0;
+        //loop to move the access to the adding node position
+        while(i<pos){
+            i++;
+            current=current->next;
+        }
+        node * temp= new node;
+        temp->data=value;
+        temp->next=current->next;
+        current->next=temp;
+        
+    }
+    //Deletes the element at the end of the list. 
+    void Delete(){
+        //temp to store the value to be deleted
+        node * temp= tail;
+        node * current= head;
+        //access have to move till the end 
+    
+        while(current->next!=tail)
+        {
+            current=current->next;
+            
+        }
+        
+        current->next=NULL;
+        tail=current;
+        delete temp;
+    }
+    
+    // Deletes the element(or node) at the position pos)
+    void Deleteat(int pos){
+        int i=1;
+        node * temp;
+        node * current= head;
+
+        while(i<pos-1)
+        {   i++;
+            current=current->next;}
+            cout<< "current : " << current->data << endl;
+        temp=current->next;
+            cout<< "temp : " << temp->data << endl;
+        current->next=temp->next;
+        delete temp;
+            
+    }
+
+    //display
+    void display(){
+        node *current=head;
+        //loop to keep moving to next node
+        while(current!=NULL){
+        
+        cout<<current->data<<"-<";
+        current=current->next;//the access moves to next node 
+    
+        }
+        cout<<endl;
+     
+    }
+    //to count
+    void count(){
+        node *current=head;
+        int i=0;
+        //loop to keep moving to next node
+        while(current!=NULL){
+        i++;
+        current=current->next;//the access moves to next node 
+    
+        }
+        cout<<"the total no. of elements in the linkes list is"<<i<<endl;
+        
+    }
+    
+};
+int main()
+{
+   LinkedList l;
+   l.insert(1);
+    l.insert(2);
+     l.insert(3);
+     l.insert(5);
+     l.insert(8);
+     l.display();
+   l.insertAt(2,7);
+   l.display();
+   l.Delete();
+   l.display();
+   l.Deleteat(2);
+   l.display();
+   l.count();
+   return 0;
+}
